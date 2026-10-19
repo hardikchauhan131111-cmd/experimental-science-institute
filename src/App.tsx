@@ -1,44 +1,27 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
-import { Header } from './components/layout/Header';
-import { Footer } from './components/layout/Footer';
-import { Home } from './pages/Home';
-import { About } from './pages/About';
-import { Courses } from './pages/Courses';
-import { Events } from './pages/Events';
-import { Login } from './pages/Login';
-import { Chat } from './pages/Chat';
-import { PrivateRoute } from './components/PrivateRoute';
-import { CursorEffect } from './components/CursorEffect';
+import { Toaster } from "@/components/ui/toaster";
+import { Toaster as Sonner } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Index from "./pages/Index";
+import NotFound from "./pages/NotFound";
 
-function App() {
-  return (
-    <AuthProvider>
+const queryClient = new QueryClient();
+
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
+      <Toaster />
+      <Sonner />
       <BrowserRouter>
-        <CursorEffect />
-        <Header />
-        <main className="min-h-[calc(100vh-140px)]">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/courses" element={<Courses />} />
-            <Route path="/events" element={<Events />} />
-            <Route path="/login" element={<Login />} />
-            <Route
-              path="/chat"
-              element={
-                <PrivateRoute>
-                  <Chat />
-                </PrivateRoute>
-              }
-            />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        </main>
-        <Footer />
+        <Routes>
+          <Route path="/" element={<Index />} />
+          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </BrowserRouter>
-    </AuthProvider>
-  );
-}
+    </TooltipProvider>
+  </QueryClientProvider>
+);
 
 export default App;
