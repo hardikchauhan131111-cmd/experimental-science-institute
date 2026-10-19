@@ -99,3 +99,39 @@
     @apply bg-background text-foreground;
   }
 }
+
+.btn-primary {
+  @apply px-8 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600 transition-colors;
+}
+
+.btn-secondary {
+  @apply px-8 py-3 border border-gray-300 text-gray-900 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600 transition-colors;
+}
+
+/* Custom cursor highlight - following the blueprint request */
+.cursor-highlight {
+  position: fixed;
+  pointer-events: none;
+  border-radius: 50%;
+  mix-blend-mode: difference;
+  z-index: 9999;
+}
+
+/* Animation for cursor highlight */
+@keyframes pulse {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+.cursor-highlight-active {
+  animation: pulse 2s infinite;
+}
